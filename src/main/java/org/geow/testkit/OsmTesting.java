@@ -98,8 +98,8 @@ public class OsmTesting {
 		return timestamp;
 	}
 	
-	public static OsmNodeImpl generateOsmNode() {
-		OsmNodeImpl node = new OsmNodeImpl();
+	public static IOsmNode generateOsmNode() {
+		IOsmNode node = new OsmNodeImpl();
 		generateProperties(node);
 		node.setLat(generateOsmLat());
 		node.setLon(generateOsmLon());
@@ -107,12 +107,12 @@ public class OsmTesting {
 	}
 	
 	
-	public static OsmNodeImpl generateOsmNodeWithTags() {
-		OsmNodeImpl node = generateOsmNode();
+	public static IOsmNode generateOsmNodeWithTags() {
+		IOsmNode node = generateOsmNode();
 		List<IOsmTag> tags = node.getTag();
 		
 		for (int j = 0; j < GeneralTesting.createUpperLimit(10L); j++) {			
-			OsmTagImpl tag = generateTag();
+			IOsmTag tag = generateTag();
 			if (!tags.contains(tag)) {
 				tags.add(tag);
 			}
@@ -120,13 +120,13 @@ public class OsmTesting {
 		return node;
 	}
 
-	public static OsmWayImpl generateOsmWay() {
-		OsmWayImpl way = new OsmWayImpl();
+	public static IOsmWay generateOsmWay() {
+		IOsmWay way = new OsmWayImpl();
 		generateProperties(way);
 		return way;
 	}
 
-	private static void generateProperties(OsmElementImpl element) {
+	private static void generateProperties(IOsmElement element) {
 		element.setChangeset(generateOsmChangeset());
 		element.setId(generateOsmId());
 		element.setTimestamp(generateXMLTimestamp());
@@ -135,12 +135,12 @@ public class OsmTesting {
 		element.setVersion(generateOsmVersion());
 	}
 	
-	public static OsmWayImpl generateOsmWayWithTags() {
-		OsmWayImpl way = generateOsmWay();
+	public static IOsmWay generateOsmWayWithTags() {
+		IOsmWay way = generateOsmWay();
 		List<IOsmTag> tags = way.getTag();
 		
 		for (int j = 0; j < GeneralTesting.createUpperLimit(MAX_TAGS); j++) {			
-			OsmTagImpl tag = generateTag();
+			IOsmTag tag = generateTag();
 			if (!tags.contains(tag)) {
 				tags.add(tag);
 			}
@@ -148,12 +148,12 @@ public class OsmTesting {
 		return way;
 	}
 	
-	public static OsmWayImpl generateOsmWayWithTagsAndNds() {
-		OsmWayImpl way = generateOsmWayWithTags();
+	public static IOsmWay generateOsmWayWithTagsAndNds() {
+		IOsmWay way = generateOsmWayWithTags();
 		List<IOsmNd> nds = way.getNd();
 		
 		for (int j = 0; j < GeneralTesting.createUpperLimit(MAX_NDS); j++) {			
-			OsmNdImpl nd = generateNd();
+			IOsmNd nd = generateNd();
 			if (!nds.contains(nd)) {
 				nds.add(nd);
 			}
@@ -161,18 +161,18 @@ public class OsmTesting {
 		return way;
 	}
 	
-	public static OsmRelationImpl generateOsmRelation() {
-		OsmRelationImpl relation = new OsmRelationImpl();
+	public static IOsmRelation generateOsmRelation() {
+		IOsmRelation relation = new OsmRelationImpl();
 		generateProperties(relation);
 		return relation;
 	}
 	
-	public static OsmRelationImpl generateOsmRelationWithTags() {
-		OsmRelationImpl relation = generateOsmRelation();
+	public static IOsmRelation generateOsmRelationWithTags() {
+		IOsmRelation relation = generateOsmRelation();
 		List<IOsmTag> tags = relation.getTag();
 		
 		for (int j = 0; j < GeneralTesting.createUpperLimit(MAX_TAGS); j++) {			
-			OsmTagImpl tag = generateTag();
+			IOsmTag tag = generateTag();
 			if (!tags.contains(tag)) {
 				tags.add(tag);
 			}
@@ -180,12 +180,12 @@ public class OsmTesting {
 		return relation;
 	}
 	
-	public static OsmRelationImpl generateOsmRelationWithTagsAndMembers() {
-		OsmRelationImpl relation = generateOsmRelationWithTags();
+	public static IOsmRelation generateOsmRelationWithTagsAndMembers() {
+		IOsmRelation relation = generateOsmRelationWithTags();
 		List<IOsmMember> members = relation.getMember();
 		
 		for (int j = 0; j < GeneralTesting.createUpperLimit(MAX_NDS); j++) {			
-			OsmMemberImpl nd = generateMember();
+			IOsmMember nd = generateMember();
 			if (!members.contains(nd)) {
 				members.add(nd);
 			}
@@ -193,8 +193,8 @@ public class OsmTesting {
 		return relation;
 	}
 	
-	public static OsmNodeImpl generateModifiedNode(IOsmNode original){
-		OsmNodeImpl revised = new OsmNodeImpl(original.getId());
+	public static IOsmNode generateModifiedNode(IOsmNode original){
+		IOsmNode revised = new OsmNodeImpl(original.getId());
 		
 		modifyNodeProperties(original, revised);		
 		modifyTags(original, revised);
@@ -202,8 +202,8 @@ public class OsmTesting {
 		return revised;
 	}
 	
-	public static OsmNodeImpl generateModifiedNodeWithoutTags(IOsmNode original){
-		OsmNodeImpl revised = new OsmNodeImpl(original.getId());
+	public static IOsmNode generateModifiedNodeWithoutTags(IOsmNode original){
+		IOsmNode revised = new OsmNodeImpl(original.getId());
 		
 		modifyNodeProperties(original, revised);
 		List<IOsmTag> revisedTags = revised.getTag();
@@ -214,8 +214,8 @@ public class OsmTesting {
 		return revised;
 	}
 	
-	public static OsmWayImpl generateModifiedOsmWay(IOsmWay original) {
-		OsmWayImpl revised = new OsmWayImpl(original.getId());
+	public static IOsmWay generateModifiedOsmWay(IOsmWay original) {
+		IOsmWay revised = new OsmWayImpl(original.getId());
 		
 		modifyWayProperties(original, revised);		
 		modifyTags(original, revised);
@@ -223,8 +223,8 @@ public class OsmTesting {
 		return revised;
 	}
 
-	public static OsmRelationImpl generateModifiedOsmRelation(IOsmRelation original) {
-		OsmRelationImpl revised = new OsmRelationImpl(original.getId());
+	public static IOsmRelation generateModifiedOsmRelation(IOsmRelation original) {
+		IOsmRelation revised = new OsmRelationImpl(original.getId());
 		
 		modifyRelationProperties(original, revised);		
 		modifyTags(original, revised);
@@ -280,7 +280,7 @@ public class OsmTesting {
 		}
 	}
 	
-	public static void modifyNodeProperties(IOsmNode original, OsmNodeImpl revised) {
+	public static void modifyNodeProperties(IOsmNode original, IOsmNode revised) {
 		modifyProperties(original, revised);
 		
 		if(likelihood(0.1)){
@@ -296,7 +296,7 @@ public class OsmTesting {
 		}
 	}
 
-	private static void modifyProperties(IOsmElement original, OsmElementImpl revised) {
+	private static void modifyProperties(IOsmElement original, IOsmElement revised) {
 		if(likelihood(0.1)){
 			revised.setChangeset(generateOsmChangeset());
 		}else{
@@ -328,11 +328,11 @@ public class OsmTesting {
 		}
 	}
 	
-	private static void modifyWayProperties(IOsmWay original, OsmWayImpl revised) {
+	private static void modifyWayProperties(IOsmWay original, IOsmWay revised) {
 		modifyProperties(original, revised);
 	}
 	
-	private static void modifyRelationProperties(IOsmRelation original, OsmRelationImpl revised) {
+	private static void modifyRelationProperties(IOsmRelation original, IOsmRelation revised) {
 		modifyProperties(original, revised);
 	}
 	
@@ -359,15 +359,15 @@ public class OsmTesting {
 		return randomValue;
 	}
 	
-	public static OsmTagImpl generateTag() {		
+	public static IOsmTag generateTag() {		
 		return new OsmTagImpl(randomKey(), randomValue());
 	}
 	
-	public static OsmNdImpl generateNd() {		
+	public static IOsmNd generateNd() {		
 		return new OsmNdImpl(GeneralTesting.createId());
 	}
 	
-	public static OsmMemberImpl generateMember() {		
+	public static IOsmMember generateMember() {		
 		BigInteger ref = BigInteger.valueOf(GeneralTesting.createId());
 		String role = likelihood(0.5) ? "inner" : "outer";
 		String type;
